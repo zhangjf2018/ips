@@ -1,0 +1,2 @@
+
+ab -n 200000 -c360 -k "http://127.0.0.1:8088/pay/trade/micropay?nonce_str=a8f31a0a280a5f6f&time_expire=20171102182825&out_trade_no=20171102182325541095091&sign=8C8D0CE8BA5E206A3C8D867BDEB28ABC8E72B65DC3FFB450BCDB7C4E0EE7B532&device_info=4998-bee8-11e7-bc06-000c29770d18&version=1.0&sign_type=HMAC-SHA256&mch_id=0100000000&total_fee=1&time_start=20171102182325&auth_code=120000000000&body=拉姆齐 - 购物公园店&charset=utf-8"

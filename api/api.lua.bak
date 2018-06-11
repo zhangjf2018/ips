@@ -1,0 +1,77 @@
+-------------------------------------------------
+-- author: zjf
+-- email :
+-- copyright (C) 2016 All rights reserved.
+-- create       : 2016-09-17 19:31
+-- Last modified: 2016-09-27 22:18
+-- description:   
+-------------------------------------------------
+local project = "ips"
+
+local str_find = string.find
+local s,e = str_find(package.path, project)
+if not s then
+	package.path = "../"..project.."/?.lua;;"..package.path
+end
+
+local logger = require("common.log.log")
+local mysql = require("common.mysql.mysql")
+local redis = require("common.redis.redis")
+local tools = require("common.tools.tools")
+local t_execute = tools.execute
+local monitor   = logger.monitor
+local log       = logger.log 
+local reset_log_id = logger.setLogID
+
+function main()
+	-- 1. 生成日志标识
+	reset_log_id()
+	--local largs = ngx.req.get_uri_args()
+	log("main process!")
+	--log(largs["a"])
+	
+	local largs = ngx.req.get_uri_args()
+
+	if not largs or next(largs) == nil then
+		ngx.req.read_body()
+		largs = ngx.req.get_post_args()
+	end
+	log(type(largs))
+	log(largs)
+	if not largs or next(largs) == nil then
+		log("----nil")
+	end
+
+	for k, v in pairs(largs) do
+		largs[k] = v
+	end
+	for k,v in pairs( largs ) do
+		log(k .. ":" ..v)
+	end
+
+	log(ngx.var.uri)
+	local args = {version="1.0", charset="utf8"}
+	local result = {retcode="0000", retmsg="success"..largs["a"]}
+	--[[
+	local db = mysql:new()
+	local t = tools.gen_ssn()
+	local sql = "insert into orders(orderno) values('"..t.."')"
+	local p,e = db:query(sql)
+	if not p then
+		log(e)
+	end
+	db:close()
+	]]--
+	-- 记录monitor 日志
+	monitor(args, result)
+	
+	return result
+end
+
+local function ex_main(  )
+    local result = t_execute( main )
+    return 0
+end
+
+--程序执行入口
+local status = ex_main( )
