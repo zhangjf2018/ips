@@ -123,7 +123,8 @@ function _M.setLogID( id )
     
     ngx.ctx[ LOGID ] = _M.id
     local tv = _time.gettimeofday()
-    local t  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+    -- local t  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+    local t  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000 ) )
     ngx.ctx["trans_start_time"] = t
 end
 
@@ -195,7 +196,8 @@ function _M.log(str, level)
 	local position = str_fmt( "%s, %d", filename, debug_info.currentline )
 
 	local tv = _time.gettimeofday()
-	local t = os_date( "%H:%M:%S", tv.sec ) .. ":" .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	-- local t = os_date( "%H:%M:%S", tv.sec ) .. ":" .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	local t = os_date( "%H:%M:%S", tv.sec ) .. ":" .. str_fmt( "%03d", math_floor( tv.usec/1000 ) )
 
 	-- 4. 每一行都要按照日志格式输出到日志文件中。
 	local slines = split(str, "\n")
@@ -260,7 +262,8 @@ function _M.monitor()
 	if not mf then return end
 
 	local tv = _time.gettimeofday()
-	local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	-- local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000 ) )
 
 	local t_end_time = trans_end_time:sub( 12 )  -- 交易结束时间 去掉 年月日
 	
@@ -320,7 +323,8 @@ function _M.channelmonitor( mfields, mdefine, start_time, _logpath )
 	if not mf then return end
 
 	local tv = _time.gettimeofday()
-	local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	-- local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000000 ) )
+	local trans_end_time  = os_date( "%Y-%m-%d %H:%M:%S", tv.sec ) .. "." .. str_fmt( "%03d", math_floor( tv.usec/1000 ) )
 
 	local t_end_time = trans_end_time:sub( 12 )  -- 交易结束时间 去掉 年月日
 	local t_start_time = start_time:sub( 12 )  -- 交易起始时间 去掉 年月日
