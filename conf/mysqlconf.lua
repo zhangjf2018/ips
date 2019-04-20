@@ -10,11 +10,11 @@ local mt = { __index = _M }
 
 -- default mysql db config
 _M.options = {
-    user = "root",
+    user     = "root",
     password = "123456",
     database = "mobilepay",
-    host = "168.33.211.220",
-    port = "3306",
+    host     = "168.33.211.220",
+    port     = "3306",
     max_packet_size = 1024 * 1024,
 }
 

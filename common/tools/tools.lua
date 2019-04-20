@@ -173,5 +173,12 @@ function _M.isNull( str )
 	return str
 end
 
+function _M.isEmpty( str )
+	if str == nil or #str == 0 then
+		return true
+	end
+	return false
+end
+
 return _M
 

@@ -49,6 +49,7 @@ log              = logger.log
 json_decode      = cjson.decode
 json_encode      = cjson.encode
 isNull           = tools.isNull
+isEmpty          = tools.isEmpty
 
 local get_retmsg = errinfo.get_retmsg
 
